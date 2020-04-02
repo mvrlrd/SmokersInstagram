@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/dinamic_tv"
+        android:onClick="onClickBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:fontFamily="monospace"
+        android:textSize="45sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/static_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:fontFamily="monospace"
+        android:textSize="14sp"
+        android:textColor="#000">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center"
+        android:contentDescription="TODO" />
+
+
+</FrameLayout>

@@ -1,4 +1,4 @@
-package ru.mvrlrd.smokersinstagram.model;
+package ru.mvrlrd.smokersinstagram.model.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,12 +8,13 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.mvrlrd.smokersinstagram.model.Photo;
 
 public class ApiHelper {
-    private static final String KEY = "";
-    private static final String BASIC_URL = "";
+    private static final String KEY = "9250926-552b631cddef606bad3e807d2";
+    private static final String BASIC_URL = "https://pixabay.com";
 
-    public Observable<Photos> requestServer() {
+    public Observable<Photo> requestServer() {
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -28,6 +29,6 @@ public class ApiHelper {
                 .build()
                 .create(IApiService.class);
 
-        return api.getPhotos(KEY).subscribeOn(Schedulers.io());
+        return api.getPhoto(KEY).subscribeOn(Schedulers.io());
     }
 }
