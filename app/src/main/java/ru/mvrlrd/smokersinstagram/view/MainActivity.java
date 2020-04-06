@@ -9,13 +9,15 @@ import moxy.presenter.InjectPresenter;
 import moxy.presenter.ProvidePresenter;
 import ru.mvrlrd.smokersinstagram.R;
 import ru.mvrlrd.smokersinstagram.presenter.MainPresenter;
+import ru.mvrlrd.smokersinstagram.view.fullsizeview.FullPictureActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 public class MainActivity extends MvpAppCompatActivity implements MoxyView {
+    public static final String keyForIntentExtra = "ru.mvrlrd.smokersinstagram.view.MainActivity.URL";
     private static final String TAG = "MainActivity";
     @BindView(R.id.recycle_view)
     RecyclerView recyclerView;
@@ -39,7 +41,7 @@ public MainPresenter getMainPresenter(){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mainPresenter.getAllPhoto();
+//        mainPresenter.getAllPhoto();
 
         initRecyclerView();
 
@@ -63,8 +65,10 @@ public MainPresenter getMainPresenter(){
 
 
     public void onClick(View view) {
+//    Log.e(TAG, mainAdapter.fff()+"");
 
-        Log.e(TAG,view.getDisplay()+"\n"
-        );
+        Intent intent = new Intent(MainActivity.this, FullPictureActivity.class);
+        intent.putExtra(keyForIntentExtra,"https://pixabay.com/get/52e9dc47495aa414f1dc8460ce2a327e1c3dd8f85254794f74297cd69448_640.jpg");
+        startActivity(intent);
     }
 }

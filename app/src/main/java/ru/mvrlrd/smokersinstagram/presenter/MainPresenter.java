@@ -1,8 +1,6 @@
 package ru.mvrlrd.smokersinstagram.presenter;
 
 import android.util.Log;
-
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -10,7 +8,6 @@ import moxy.InjectViewState;
 import moxy.MvpPresenter;
 import ru.mvrlrd.smokersinstagram.model.retrofit.ApiHelper;
 import ru.mvrlrd.smokersinstagram.model.Photo;
-import ru.mvrlrd.smokersinstagram.presenter.recycleview.I2RecyclerMain;
 import ru.mvrlrd.smokersinstagram.view.IViewHolder;
 import ru.mvrlrd.smokersinstagram.view.MoxyView;
 
@@ -19,15 +16,12 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
     private static final String TAG = "MainPresenter: ";
     private ApiHelper apiHelper;
     private RecyclerMain recyclerMain;
-
     private Photo photo;
 
 
     public MainPresenter() {
         recyclerMain = new RecyclerMain();
         this.apiHelper = new ApiHelper();
-
-
     }
 
     @Override
@@ -43,9 +37,8 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
                         .subscribe(
                                 photos -> {
                                     photo = photos;
-
                                     getViewState().updateRecyclerView();
-                                    Log.d(TAG, "  all urls:  " + "   " + photo.getHits().size());
+                                    Log.d(TAG, "  all urls:  " + "   " + photo.getHits().get(0).webformatURL);
                                 },
                                 throwable -> {
                                     Log.e(TAG, "onError " + throwable + "   ");

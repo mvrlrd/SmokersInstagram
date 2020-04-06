@@ -1,4 +1,4 @@
-package ru.mvrlrd.smokersinstagram.presenter.recycleview;
+package ru.mvrlrd.smokersinstagram.presenter;
 
 import ru.mvrlrd.smokersinstagram.view.IViewHolder;
 

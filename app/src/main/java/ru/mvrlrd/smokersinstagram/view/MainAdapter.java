@@ -1,15 +1,9 @@
 package ru.mvrlrd.smokersinstagram.view;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,17 +12,18 @@ import butterknife.ButterKnife;
 import ru.mvrlrd.smokersinstagram.PicassoLoader;
 import ru.mvrlrd.smokersinstagram.R;
 
-import ru.mvrlrd.smokersinstagram.presenter.recycleview.I2RecyclerMain;
+import ru.mvrlrd.smokersinstagram.presenter.I2RecyclerMain;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>{
     private static final String TAG = "MainAdapter";
 
+
     private I2RecyclerMain i2RecyclerMain;
-    private PicassoLoader picassoLoader;
+//    private PicassoLoader picassoLoader;
 
     public MainAdapter( I2RecyclerMain i2RecyclerMain) {
         this.i2RecyclerMain = i2RecyclerMain;
-        picassoLoader = new PicassoLoader();
+//        picassoLoader = new PicassoLoader();
     }
 
     @NonNull
@@ -42,6 +37,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     public void onBindViewHolder(@NonNull MainViewHolder mainViewHolder, int position) {
         mainViewHolder.position = position;
         i2RecyclerMain.bindView(mainViewHolder);
+
     }
 
     @Override
@@ -49,9 +45,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         return i2RecyclerMain.getItemCount();
     }
 
+
+
+
+
     class MainViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
 
         private int position = 0;
+
 
         @BindView(R.id.image_view_item_main)
         ImageView imageView;
@@ -63,7 +64,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         @Override
         public void setImage(String url) {
-            picassoLoader.loadImage(url, imageView);
+            PicassoLoader.loadImage(url, imageView);
+
         }
 
         @Override
