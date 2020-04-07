@@ -16,7 +16,7 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
     private static final String TAG = "MainPresenter: ";
     private ApiHelper apiHelper;
     private RecyclerMain recyclerMain;
-    private Photo photo;
+    public Photo photo;
 
 
     public MainPresenter() {
@@ -65,12 +65,17 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
             }
             return 0;
         }
-    }
 
+        @Override
+        public Photo getPhoto() {
+            return photo;
+        }
+    }
 
     public Photo getPhoto() {
         return photo;
     }
+
 }
 
 

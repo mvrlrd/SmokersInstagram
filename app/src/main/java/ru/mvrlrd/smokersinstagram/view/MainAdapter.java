@@ -1,9 +1,11 @@
 package ru.mvrlrd.smokersinstagram.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,16 +16,19 @@ import ru.mvrlrd.smokersinstagram.R;
 
 import ru.mvrlrd.smokersinstagram.presenter.I2RecyclerMain;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>{
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>  {
     private static final String TAG = "MainAdapter";
 
+OnClickInterface onClickInterface;
+
+int pos;
 
     private I2RecyclerMain i2RecyclerMain;
 //    private PicassoLoader picassoLoader;
 
-    public MainAdapter( I2RecyclerMain i2RecyclerMain) {
+    public MainAdapter(I2RecyclerMain i2RecyclerMain, OnClickInterface onClickInterface) {
         this.i2RecyclerMain = i2RecyclerMain;
-//        picassoLoader = new PicassoLoader();
+        this.onClickInterface = onClickInterface;
     }
 
     @NonNull
@@ -36,20 +41,30 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder mainViewHolder, int position) {
         mainViewHolder.position = position;
+        mainViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickInterface.setClick(position,i2RecyclerMain.getPhoto().getHits().get(position).webformatURL);
+
+            }
+
+        });
+
+        Log.e(TAG,mainViewHolder.getAdapterPosition()+"  adapterPosition");
         i2RecyclerMain.bindView(mainViewHolder);
 
     }
 
     @Override
     public int getItemCount() {
+
         return i2RecyclerMain.getItemCount();
+
     }
 
 
 
-
-
-    class MainViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
+    class MainViewHolder extends RecyclerView.ViewHolder implements IViewHolder{
 
         private int position = 0;
 
@@ -60,6 +75,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+
         }
 
         @Override
@@ -72,5 +89,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         public int getPos() {
             return position;
         }
+
+
     }
+
+
 }
