@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,17 +39,15 @@ int pos;
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder mainViewHolder, int position) {
-        mainViewHolder.position = position;
-        mainViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickInterface.setClick(position,i2RecyclerMain.getPhoto().getHits().get(position).webformatURL);
+//  https://medium.com/@noureldeen.abouelkassem/difference-between-position-getadapterposition-and-getlayoutposition-in-recyclerview-80279a2711d1
+        //https://www.tutorialspoint.com/get-clicked-item-and-its-position-in-recyclerview
+        //https://stackoverflow.com/questions/26682277/how-do-i-get-the-position-selected-in-a-recyclerview
 
-            }
-
-        });
-
-        Log.e(TAG,mainViewHolder.getAdapterPosition()+"  adapterPosition");
+        mainViewHolder.position = mainViewHolder.getAdapterPosition();
+        mainViewHolder.imageView.setOnClickListener(view ->
+                onClickInterface.setClick(position,
+                        i2RecyclerMain.getPhoto().getHits().get(mainViewHolder.getLayoutPosition()).webformatURL));
+        Log.e(TAG,"adapterPosition: "+mainViewHolder.getAdapterPosition()+" layoutPosition: "+ mainViewHolder.getLayoutPosition());
         i2RecyclerMain.bindView(mainViewHolder);
 
     }

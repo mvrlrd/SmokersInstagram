@@ -59,7 +59,7 @@ onClickInterface = new OnClickInterface() {
     private void initRecyclerView() {
 
         //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         mainAdapter = new MainAdapter(mainPresenter.getRecyclerMain(),onClickInterface);
         recyclerView.setAdapter(mainAdapter);
