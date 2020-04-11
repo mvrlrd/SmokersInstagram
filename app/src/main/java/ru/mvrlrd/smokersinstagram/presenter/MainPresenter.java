@@ -4,6 +4,7 @@ import android.util.Log;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 import ru.mvrlrd.smokersinstagram.model.retrofit.ApiHelper;
@@ -17,9 +18,11 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
     private ApiHelper apiHelper;
     private RecyclerMain recyclerMain;
     public Photo photo;
+    RoomPresenter roomPresenter;
 
 
     public MainPresenter() {
+        roomPresenter = new RoomPresenter();
         recyclerMain = new RecyclerMain();
         this.apiHelper = new ApiHelper();
     }
@@ -37,7 +40,11 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
                         .subscribe(
                                 photos -> {
                                     photo = photos;
+                                    Log.e(TAG,photos.getHits().get(3).toString());
                                     getViewState().updateRecyclerView();
+
+                                    roomPresenter.putListData(photos.getHits());
+
                                     Log.d(TAG, "  all urls:  " + "   " + photo.getHits().get(0).webformatURL);
                                 },
                                 throwable -> {
@@ -71,6 +78,20 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
             return photo;
         }
     }
+
+//    public void getData(){
+//            Disposable disposable = roomPresenter.getHitDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(hits ->{
+//                Log.d(TAG,"getData: "+hits.toString()+" "+Thread.currentThread().getName());
+//                getViewState().updateRecyclerView();
+//            }, throwable -> {
+//                Log.d(TAG,"getData: "+throwable);
+//            });
+//        }
+
+    public void deleteAll(){
+        roomPresenter.deleteAll();
+    }
+
 
     public Photo getPhoto() {
         return photo;
