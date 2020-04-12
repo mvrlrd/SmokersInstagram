@@ -36,4 +36,6 @@ public interface HitDao {
         @Query("DELETE FROM table_hits")
         Single<Void> deleteAll();
 
+        @Query("SELECT COUNT(id) FROM table_hits")
+        Single<Integer> countOfRows();
     }

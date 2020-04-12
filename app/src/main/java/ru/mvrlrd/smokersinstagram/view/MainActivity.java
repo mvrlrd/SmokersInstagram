@@ -13,7 +13,9 @@ import ru.mvrlrd.smokersinstagram.presenter.MainPresenter;
 import ru.mvrlrd.smokersinstagram.view.fullsizeview.FullPictureActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
@@ -49,14 +51,25 @@ public class MainActivity extends MvpAppCompatActivity implements MoxyView {
         };
         initRecyclerView();
 
+
+
     }
 
     private void initRecyclerView() {
         //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        int spanCountForGridLayout;
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            spanCountForGridLayout = 2;
+        } else {
+            spanCountForGridLayout = 3;
+        }
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, spanCountForGridLayout);
         recyclerView.setLayoutManager(layoutManager);
         mainAdapter = new MainAdapter(mainPresenter.getRecyclerMain(), onClickInterface);
         recyclerView.setAdapter(mainAdapter);
+
     }
 
 
@@ -70,5 +83,7 @@ public class MainActivity extends MvpAppCompatActivity implements MoxyView {
 //        mainPresenter.getData();
         mainPresenter.deleteAll();
     }
+
+
 
 }

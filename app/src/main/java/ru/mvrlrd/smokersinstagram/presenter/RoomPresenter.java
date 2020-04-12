@@ -26,22 +26,22 @@ public class RoomPresenter {
         Disposable disposable = hitDao.insert(hit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(id ->{
             Log.d(TAG,"putData: "+id);
         },throwable -> {
-            Log.d(TAG,"putData: "+throwable);
+            Log.e(TAG,"onError: "+"putData "+throwable);
         });
     }
     public void updateData(List<Hit> hitList){
         Disposable disposable = hitDao.updateAll(hitList).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(id ->{
             Log.d(TAG,"putListData: "+id);
         },throwable -> {
-            Log.d(TAG,"putListData: "+throwable);
+            Log.e(TAG,"onError: "+"updateData "+throwable);
         });
     }
 
     public void putListData(List<Hit> hitList){
         Disposable disposable = hitDao.insertList(hitList).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(id ->{
-            Log.d(TAG,"putListData: "+id);
+            Log.d(TAG,"putListData");
         },throwable -> {
-            Log.d(TAG,"putListData: "+throwable);
+            Log.e(TAG,"onError: "+"putListData "+throwable);
         });
     }
 
@@ -49,7 +49,7 @@ public class RoomPresenter {
         Disposable disposable = hitDao.getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(hits ->{
             Log.d(TAG,"getData: "+hits.toString()+" "+Thread.currentThread().getName());
         }, throwable -> {
-            Log.d(TAG,"getData: "+throwable);
+            Log.e(TAG,"onError: "+"getData "+throwable);
         });
     }
 
@@ -58,7 +58,7 @@ public class RoomPresenter {
 
             Log.d(TAG,"getData: "+hits.toString()+" "+Thread.currentThread().getName());
         }, throwable -> {
-            Log.d(TAG,"getData: "+throwable);
+            Log.e(TAG,"onError: "+"deleteAll "+throwable);
         });
     }
 

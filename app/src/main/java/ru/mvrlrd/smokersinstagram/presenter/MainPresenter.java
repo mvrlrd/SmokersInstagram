@@ -4,6 +4,7 @@ import android.util.Log;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.subscriptions.AsyncSubscription;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
@@ -22,6 +23,7 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
 
 
     public MainPresenter() {
+//        photo= new Photo();
         roomPresenter = new RoomPresenter();
         recyclerMain = new RecyclerMain();
         this.apiHelper = new ApiHelper();
@@ -39,16 +41,25 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 photos -> {
-                                    photo = photos;
-                                    Log.e(TAG,photos.getHits().get(3).toString());
-                                    getViewState().updateRecyclerView();
+                                    Disposable disposable2 = roomPresenter.getHitDao().countOfRows().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(num ->{
+                                        Log.d(TAG,"getAllPhoto: "+num);
+                                        if (num==0){
+                                            photo = photos;
+                                            getViewState().updateRecyclerView();
+                                            roomPresenter.putListData(photos.getHits());
+                                            Log.d(TAG, "getAllPhoto: "+"room was empty, data was put into room, photos' urls were downloaded from server.");
+                                        }else{
+                                            photo=new Photo();
+                                            getData();
+                                        }
+                                    }, throwable -> {
+                                        Log.e(TAG,"countOfRows: "+throwable);
+                                    });
 
-                                    roomPresenter.putListData(photos.getHits());
-
-                                    Log.d(TAG, "  all urls:  " + "   " + photo.getHits().get(0).webformatURL);
+                                    Log.d(TAG, "getAllPhoto: "+"data has already been put into room");
                                 },
                                 throwable -> {
-                                    Log.e(TAG, "onError " + throwable + "   ");
+                                    Log.e(TAG, "onError "+"getAllPhoto " + throwable);
                                 });
     }
 
@@ -79,23 +90,23 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
         }
     }
 
-//    public void getData(){
-//            Disposable disposable = roomPresenter.getHitDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(hits ->{
-//                Log.d(TAG,"getData: "+hits.toString()+" "+Thread.currentThread().getName());
-//                getViewState().updateRecyclerView();
-//            }, throwable -> {
-//                Log.d(TAG,"getData: "+throwable);
-//            });
-//        }
+    public void getData(){
+            Disposable disposable = roomPresenter.getHitDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(hits ->{
+                photo.setHits(hits);
+                Log.d(TAG,"getData: photos' urls were downloaded from Room. "+hits.toString()+" "+Thread.currentThread().getName());
+                getViewState().updateRecyclerView();
+            }, throwable -> {
+                Log.e(TAG,"getData: "+throwable);
+            });
+        }
+
 
     public void deleteAll(){
         roomPresenter.deleteAll();
     }
 
 
-    public Photo getPhoto() {
-        return photo;
-    }
+
 
 }
 

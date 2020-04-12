@@ -13,4 +13,7 @@ public class Photo {
         return hits;
     }
 
+    public void setHits(List<Hit> hits) {
+        this.hits = hits;
+    }
 }
