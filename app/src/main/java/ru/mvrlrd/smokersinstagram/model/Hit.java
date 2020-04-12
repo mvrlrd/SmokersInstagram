@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -17,18 +16,6 @@ public class Hit  {
     @Expose
     @SerializedName("webformatURL")
     public String webformatURL;
-
-
-
-//    private int countOfClicks;
-//
-//    public int getCountOfClicks() {
-//        return countOfClicks;
-//    }
-//
-//    public void incrementCountOfClicks() {
-//        this.countOfClicks++;
-//    }
 
     public void setWebformatURL(String webformatURL) {
         this.webformatURL = webformatURL;

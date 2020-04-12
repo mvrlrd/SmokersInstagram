@@ -11,13 +11,10 @@ import moxy.presenter.ProvidePresenter;
 import ru.mvrlrd.smokersinstagram.R;
 import ru.mvrlrd.smokersinstagram.presenter.MainPresenter;
 import ru.mvrlrd.smokersinstagram.view.fullsizeview.FullPictureActivity;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
-import android.view.View;
 
 public class MainActivity extends MvpAppCompatActivity implements MoxyView {
     public static final String keyForIntentExtra = "ru.mvrlrd.smokersinstagram.view.MainActivity.URL";
@@ -25,6 +22,7 @@ public class MainActivity extends MvpAppCompatActivity implements MoxyView {
     @BindView(R.id.recycle_view)
     RecyclerView recyclerView;
     private OnClickInterface onClickInterface;
+
     private MainAdapter mainAdapter;
     @InjectPresenter
     MainPresenter mainPresenter;
@@ -47,12 +45,8 @@ public class MainActivity extends MvpAppCompatActivity implements MoxyView {
                 intent.putExtra(keyForIntentExtra, url);
                 startActivity(intent);
             }
-
         };
         initRecyclerView();
-
-
-
     }
 
     private void initRecyclerView() {
@@ -69,9 +63,7 @@ public class MainActivity extends MvpAppCompatActivity implements MoxyView {
         recyclerView.setLayoutManager(layoutManager);
         mainAdapter = new MainAdapter(mainPresenter.getRecyclerMain(), onClickInterface);
         recyclerView.setAdapter(mainAdapter);
-
     }
-
 
     @Override
     public void updateRecyclerView() {
@@ -79,11 +71,8 @@ public class MainActivity extends MvpAppCompatActivity implements MoxyView {
         mainAdapter.notifyDataSetChanged();
     }
     @OnClick(R.id.button)
-    public void getData(){
+    public void deleteAll(){
 //        mainPresenter.getData();
         mainPresenter.deleteAll();
     }
-
-
-
 }

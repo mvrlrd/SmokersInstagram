@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.mvrlrd.smokersinstagram.PicassoLoader;
 import ru.mvrlrd.smokersinstagram.R;
-
 import ru.mvrlrd.smokersinstagram.presenter.I2RecyclerMain;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {

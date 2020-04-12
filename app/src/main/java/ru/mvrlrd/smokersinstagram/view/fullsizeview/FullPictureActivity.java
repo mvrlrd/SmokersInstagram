@@ -1,6 +1,5 @@
 package ru.mvrlrd.smokersinstagram.view.fullsizeview;
 
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import moxy.MvpAppCompatActivity;
@@ -10,7 +9,6 @@ import ru.mvrlrd.smokersinstagram.PicassoLoader;
 import ru.mvrlrd.smokersinstagram.R;
 import ru.mvrlrd.smokersinstagram.presenter.secondpresenter.DetailedPresenter;
 import ru.mvrlrd.smokersinstagram.view.MainActivity;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -33,8 +31,6 @@ public class FullPictureActivity extends MvpAppCompatActivity implements SecondV
         ButterKnife.bind(this);
 
         detailedPresenter.setUrl(getIntent().getStringExtra(MainActivity.keyForIntentExtra));
-
-
     }
 
     @Override

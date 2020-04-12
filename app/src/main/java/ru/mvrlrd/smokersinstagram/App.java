@@ -1,9 +1,7 @@
 package ru.mvrlrd.smokersinstagram;
 
 import android.app.Application;
-
 import com.squareup.leakcanary.LeakCanary;
-
 import androidx.room.Room;
 import ru.mvrlrd.smokersinstagram.model.room.AppDataBase;
 
@@ -11,10 +9,13 @@ public class App extends Application {
 
     public static App instance;
     private AppDataBase database;
+    private static AppComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        component = DaggerAppComponent.create();
+
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
@@ -31,5 +32,9 @@ public class App extends Application {
 
     public AppDataBase getDatabase() {
         return database;
+    }
+
+    public static AppComponent getComponent() {
+        return component;
     }
 }

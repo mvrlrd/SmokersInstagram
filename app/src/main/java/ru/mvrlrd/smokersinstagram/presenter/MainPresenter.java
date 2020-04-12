@@ -4,10 +4,10 @@ import android.util.Log;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.subscriptions.AsyncSubscription;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
+import ru.mvrlrd.smokersinstagram.App;
 import ru.mvrlrd.smokersinstagram.model.retrofit.ApiHelper;
 import ru.mvrlrd.smokersinstagram.model.Photo;
 import ru.mvrlrd.smokersinstagram.view.IViewHolder;
@@ -16,17 +16,18 @@ import ru.mvrlrd.smokersinstagram.view.MoxyView;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MoxyView> {
     private static final String TAG = "MainPresenter: ";
-    private ApiHelper apiHelper;
+
+    ApiHelper apiHelper;
     private RecyclerMain recyclerMain;
-    public Photo photo;
+    Photo photo;
     RoomPresenter roomPresenter;
 
 
     public MainPresenter() {
-//        photo= new Photo();
-        roomPresenter = new RoomPresenter();
+        roomPresenter = App.getComponent().getRoomPresenter();
         recyclerMain = new RecyclerMain();
-        this.apiHelper = new ApiHelper();
+        apiHelper = App.getComponent().getApiHelper();
+
     }
 
     @Override
@@ -49,7 +50,7 @@ public class MainPresenter extends MvpPresenter<MoxyView> {
                                             roomPresenter.putListData(photos.getHits());
                                             Log.d(TAG, "getAllPhoto: "+"room was empty, data was put into room, photos' urls were downloaded from server.");
                                         }else{
-                                            photo=new Photo();
+                                            photo = App.getComponent().getPhoto();
                                             getData();
                                         }
                                     }, throwable -> {

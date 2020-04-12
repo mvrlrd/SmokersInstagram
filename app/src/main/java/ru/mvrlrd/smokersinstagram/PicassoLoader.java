@@ -1,8 +1,6 @@
 package ru.mvrlrd.smokersinstagram;
 
-import android.content.Context;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
 
 
